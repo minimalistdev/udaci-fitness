@@ -10,6 +10,7 @@ import {TabNavigator, StackNavigator} from 'react-navigation'
 import {white, purple}from './utils/colors'
 import {Constants} from 'expo'
 import DetailEntry from './components/DetailEntry'
+import Live from './components/Live'
 
 function UdaciStatusBar({backgroundColor, ...props}) {
     return (
@@ -32,6 +33,13 @@ const Tabs = TabNavigator({
         navigationOptions: {
             tabBarLabel: 'Add Entry',
             tabBarIcon: ({tintColor}) => <FontAwesome name='plus-square' size={30} color={tintColor}/>
+        }
+    },
+    Live: {
+        screen: Live,
+        navigationOptions: {
+            tabBarLabel: 'Live',
+            tabBarIcon: ({tintColor}) => <Ionicons name='ios-speedometer' size={30} color={tintColor}/>
         }
     }
 }, {
