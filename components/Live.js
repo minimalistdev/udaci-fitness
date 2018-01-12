@@ -10,6 +10,7 @@ export default class Live extends Component {
         coords: null,
         status: 'granted',
         direction: '',
+        bounceValue: new Animated.Value(1)
     }
 
     componentDidMount() {
@@ -51,6 +52,13 @@ export default class Live extends Component {
             const newDirection = calculateDirection(coords.heading)
             const {direction, bounceValue} = this.state
 
+            if(newDirection !== direction) {
+                Animated.sequence([
+                    Animated.timing(bounceValue, {duration: 200, toValue: 1.04}),
+                    Animated.spring(bounceValue, {toValue: 1, friction: 4})
+                ]).start()
+            }
+
             this.setState(() => ({
                 coords,
                 status: 'granted',
@@ -60,7 +68,7 @@ export default class Live extends Component {
     }
 
     render() {
-        const {status, coords, direction} = this.state
+        const {status, coords, direction, bounceValue} = this.state
 
         if (status === null) {
             return <ActivityIndicator style={{marginTop: 30}}/>
@@ -94,7 +102,7 @@ export default class Live extends Component {
             <View style={styles.container}>
                 <View style={styles.directionContainer}>
                     <Text style={styles.header}>You're heading</Text>
-                    <Text style={styles.direction}>{direction}</Text>
+                    <Animated.Text style={[styles.direction, {transform: [{scale: bounceValue}]}]}>{direction}</Animated.Text>
                 </View>
                 <View style={styles.metricContainer}>
                     <View style={styles.metric}>
