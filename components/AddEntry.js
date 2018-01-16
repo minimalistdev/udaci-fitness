@@ -1,6 +1,12 @@
 import React, {Component} from 'react'
 import {View, TouchableOpacity, Text, Platform, StyleSheet} from 'react-native'
-import {getMetricMetaInfo, timeToString, getDailyReminderValue} from '../utils/helpers'
+import {
+    getMetricMetaInfo,
+    timeToString,
+    getDailyReminderValue,
+    clearLocalNotification,
+    setLocalNotification
+} from '../utils/helpers'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
 import DateHeader from './DateHeader'
@@ -82,7 +88,8 @@ class AddEntry extends Component {
 
         submitEntry({key, entry})
 
-        //clear local notification
+        clearLocalNotification()
+            .then(setLocalNotification)
     }
 
     reset = () => {
@@ -110,7 +117,7 @@ class AddEntry extends Component {
             return (
                 <View style={styles.center}>
                     <Ionicons
-                        name={Platform.OS === 'ios'?'ios-happy-outline':'md-happy'}
+                        name={Platform.OS === 'ios' ? 'ios-happy-outline' : 'md-happy'}
                         size={100}
                     />
                     <Text>You already logged your information for today.</Text>

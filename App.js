@@ -11,6 +11,7 @@ import {white, purple}from './utils/colors'
 import {Constants} from 'expo'
 import DetailEntry from './components/DetailEntry'
 import Live from './components/Live'
+import {setLocalNotification} from './utils/helpers'
 
 function UdaciStatusBar({backgroundColor, ...props}) {
     return (
@@ -80,6 +81,7 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
 
     componentDidMount() {
+        setLocalNotification()
     }
 
     render() {
